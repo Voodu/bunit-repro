@@ -1,0 +1,6 @@
+﻿<button @onclick="OnClick">Button</button>
+
+@code {
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

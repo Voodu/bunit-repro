@@ -1,0 +1,19 @@
+﻿@code
+{
+    [Fact]
+    public async Task Test()
+    {
+        var ctx = new TestContext();
+        var wasInvoked = false;
+
+        Action<MouseEventArgs> onClick = _ => { wasInvoked = true; };
+
+        var cut = ctx.Render(@<EventCallbackParams OnClick="onClick" />);
+        var button = cut.Find("button");
+        await button.ClickAsync(new MouseEventArgs());
+
+        cut.WaitForAssertion(() => Assert.True(wasInvoked));
+        
+        ctx.Dispose();
+    }
+}
